@@ -29,11 +29,11 @@ class Author(models.Model):
                                  help_text="Введите фамилию автора",
                                  verbose_name="Фамилия автора")
 
-    date_of_birth = models.DateField(help_text="Введите дату рождения", null=True, blank=True,
+    date_of_birth = models.DateField(help_text="Введите дату рождения",
                                      verbose_name="Дата рождения",
                                      null=True, blank=True)
 
-    date_of_death = models.DateField(help_text="Введите дату смерти", null=True, blank=True,
+    date_of_death = models.DateField(help_text="Введите дату смерти",
                                      verbose_name="Дата смерти",
                                      null=True, blank=True)
 
@@ -47,11 +47,11 @@ class Book(models.Model):
 
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE, null=True, blank=True,
                               help_text="Выберите жанр для книги",
-                              verbose_name="Жанр книги", null=True)
+                              verbose_name="Жанр книги")
 
     language = models.ForeignKey('Language', on_delete=models.CASCADE, null=True, blank=True,
                                  help_text="Выберите язык книги",
-                                 verbose_name="Язык книги", null=True)
+                                 verbose_name="Язык книги")
 
     author = models.ManyToManyField('Author', null=True, blank=True,
                                     help_text="Выберите автора книги",
