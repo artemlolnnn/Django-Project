@@ -53,7 +53,7 @@ class Book(models.Model):
                                  help_text="Выберите язык книги",
                                  verbose_name="Язык книги")
 
-    author = models.ManyToManyField('Author', null=True, blank=True,
+    author = models.ManyToManyField('Author', blank=True,
                                     help_text="Выберите автора книги",
                                     verbose_name="Автор книги")
 
@@ -96,8 +96,7 @@ class BookInstance(models.Model):
                                verbose_name="Издательство")
 
     status = models.ForeignKey('Status', on_delete=models.CASCADE,
-                               null=True,
-                               blank=True,
+                               null=True, blank=True,
                                help_text="Изменить состояние экземпляра",
                                verbose_name="Статус экземпляра книги")
 
