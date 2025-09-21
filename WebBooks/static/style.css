@@ -1,0 +1,42 @@
+.sidebar-nav{
+    margin-top: 20px;
+    margin-left: 1cm;
+    padding: 0;
+    list-style: none;
+}
+
+a{
+    color: blue;
+    transition: all 0.75s ease;
+}
+
+a:hover{
+    color: rgba(176, 255, 177, 0.799);
+}
+
+/* Стили для сообщений */
+.alert {
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}

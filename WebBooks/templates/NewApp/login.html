@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% extends 'base_generic.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <h2>Login Page</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="hidden" name="sg" value="login">
+        <label>
+            username: 
+            <input name="username" type="text" placeholder="name">
+        </label>
+        <br>
+        <label>
+            password: 
+            <input name="password" type="password" placeholder="password">
+        </label>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    <br>
+    <h2>SignIn</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="hidden" name="sg" value="signin">
+        <label>
+            username: 
+            <input name="username" type="text" placeholder="name">
+        </label>
+        <br>
+        <label>
+            password: 
+            <input name="password" type="password" placeholder="password">
+        </label>
+        <br>    
+        <label>
+            repeat password: 
+            <input name="password2" type="password" placeholder="repeat password">
+        </label>
+        <br>
+        <label>
+            email: 
+            <input type="email" name="email" placeholder="hello@gmail.com">
+        </label>
+        <br>
+        <button type="submit">SignIn</button>
+    </form>
+    {% endblock %}
+</body>
+</html>

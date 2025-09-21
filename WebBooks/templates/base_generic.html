@@ -1,0 +1,61 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+{% block head %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {% if request.session.logined %}
+
+
+            <button name="Logout" type="submit"><a href="{% url 'logout' %}">Logout</a></button>
+        {% else %}
+            <button name="Login" type="submit"><a href="{% url 'login' %}">Login</a></button>    
+        {% endif %}
+    </form>
+    <div style="margin-right: 1cm;">
+        <ul class="sidebar-nav">
+            <li><a href="{% url 'index' %}">Главная страница</a></li>
+            <li><a href="{% url 'books' %}">Книги</a></li>
+            <li><a href="{% url 'authors' %}">Все авторы</a></li>
+            <li><a href="{% url 'authors_add' %}">Редактировать авторов</a></li>
+            <li><a href="{% url 'book_create' %}">Добавить книжку</a></li>
+            <li><a class="nav-link" href="{% url 'my-borrowed' %}">Мои Заказы</a></li>
+        </ul>
+    </div>
+{% endblock %}
+{% block content %}
+    {% block page %}
+    {% endblock page %}
+    {% block sidebar %}
+    {% endblock %}
+{% endblock content %}
+
+{% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{path_obj.previous_page_number}}">
+                        Предыдушая
+                    </a>
+                {% endif %}
+                <span class="page-current">
+                    Страница {{page_obj.number}} из {{page_obj.paginator.num_pages}}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{page_obj.next_page_number}}">
+                        Следуюшая
+                    </a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% endblock pagination %}
+
+{% block footer %}
+    {% block copyright %}
+        <p>Copyright by Artem</p>
+<p>Вы {{user.get_username}}</p>
+    {% endblock copyright%}
+{% endblock %}

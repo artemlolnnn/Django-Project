@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог</title>
+
+    <style>
+        :root{
+            --dark-purple: #7e759c;
+            --white-text: #e0e0e0;
+        }
+
+        .MainDiv{
+            width: 75%;
+            height: 10cm;
+            background-color: rgba(250, 178, 226, 0.367);
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+        }
+
+        a{
+            color: blue;
+            transition: all 0.75s ease;
+        }
+
+        a:hover{
+            color: rgba(176, 255, 177, 0.799);
+        }
+    </style>
+</head>
+<body style="background-color: var(--dark-purple);">
+    <h2 style="color: var(--white-text); text-align: center;">Добро пожаловать на главную страницу мира книг!</h2>
+
+    <div class="MainDiv">
+        <h2 style="text-align: center; color: var(--white-text);">Информация и ссылки</h2>
+
+        <p style="margin-left: 1cm; color: var(--white-text);">Всего книг: {{books}}, узнать больше: <a style="visibility: inherit;" href="{% url 'books' %}">тут</a></p>
+        <p style="margin-left: 1cm; color: var(--white-text);">Всего авторов: {{authors}}, узнать больше: <a style="visibility: visible;" href="{% url 'authors' %}">тут</a></p>
+        <p style="margin-left: 1cm; color: var(--white-text);">Вы посетили наш сайт: {{num_visits}} раз!</p>
+        <p style="margin-left: 1cm; color: var(--white-text); margin-top: 1cm;">Ищите конкретного автора или книгу? <br> <br> Вбейте имя в поисковике и мы найдем его для вас!</p>
+    
+        <form method="POST">
+            {% csrf_token %}
+
+            <p style="margin-left: 3cm; color: var(--white-text);">
+                Имя книги/автора:
+
+                <input style="margin-left: 1cm;" type="text" name="AuthorOrBook" placeholder="введите имя автора/книги">
+            </p>
+
+            <button style="background-color: rgb(0, 255, 153); width: 1.75cm; height: 1cm; margin-left: 6cm;" type="submit">
+                <label>
+                    Найти
+                </label>
+            </button>
+        </form>
+    </div>
+</body>
+</html>

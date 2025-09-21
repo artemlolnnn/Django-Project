@@ -1,0 +1,56 @@
+Исправления в регистрации
+
+Проблема была в том, что пользователи не сохранялись в базу данных. Забыл добавить new_user.save() в коде.
+
+Что исправил:
+
+1. Добавил сохранение в БД - теперь вызывается new_user.save() и пользователи попадают в базу
+
+2. Автоматический вход после регистрации - пользователь сразу входит в систему:
+   ```
+   auth_login(request, new_user)
+   request.session['logined'] = new_user.username
+   ```
+
+3. Уведомления пользователю - зеленые сообщения при успехе, красные при ошибках:
+   ```
+   messages.success(request, 'Регистрация прошла успешно! Добро пожаловать!')
+   messages.error(request, 'Пользователь с таким именем уже существует!')
+   ```
+
+4. Исправил формы - добавил action="" чтобы данные корректно отправлялись:
+   ```
+   <form method="POST" action="">
+   ```
+   (templates/NewApp/login.html, строки 18 и 38)
+
+5. Немного стилей
+
+6. Защита от ошибок - добавил try/catch, если что-то пойдет не так, пользователь увидит понятное сообщение:
+   ```python
+   try:
+       new_user.save()
+   except Exception as e:
+       messages.error(request, f'Ошибка при сохранении пользователя: {e}')
+   ```
+
+7. Исправил загрузку CSS - исправил STATICFILES_DIRS в settings.py:
+   ```python
+   STATICFILES_DIRS = [
+       BASE_DIR / "static",
+   ]
+   ```
+   И добавил обработку статических файлов в urls.py:
+   ```python
+   if settings.DEBUG:
+       urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+   ```
+
+8. Убрал автоматическое перенаправление - после регистрации пользователь остается на странице логина и может увидеть сообщение об успехе
+
+Файлы которые трогал:
+- NewApp/views.py
+- templates/NewApp/login.html  
+- static/style.css
+- WebBooks/settings.py
+- WebBooks/urls.py

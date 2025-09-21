@@ -1,0 +1,33 @@
+Что было исправлено и в каких файлах
+
+Бронирование книги
+- NewApp/views.py
+  • Добавлен импорт: from datetime import datetime.
+  • В book_booked: теперь только POST; 
+  поиск BookInstance по pk из URL (вместо inv_nom); 
+  установка borrower; парсинг date_pick → due_back; 
+  установка статуса «Нету в наличии» (или status_id=2 при отсутствии соответствующей записи); 
+  сохранение и redirect на маршрут my-borrowed.
+  • В LoanedBooksByUserListView.get_queryset: borrower=self.request.user и status_id=2; 
+  сортировка по due_back.
+- WebBooks/urls.py
+  • Путь изменён на: path('book_booked/<int:id>/', views.book_booked, name="book_booked").
+- templates/NewApp/book_detail.html
+  • Проверки статуса переведены на status_id; отображение статуса через copy.status.name.
+  • Показ инвентарного номера через inv_nom (фолбэк: id).
+  • Кнопка «Заказать» доступна только для авторизованных (user.is_authenticated); форма отправляет на URL с pk.
+- templates/NewApp/bookinstance_list_borrowed_user.html
+  • Исправлён вывод даты: due_back вместо dueback.
+
+исправлена ошибка 404 при бронировании; 
+статус и срок сдачи сохраняются корректно; 
+перенаправление идёт на «Мои заказы».
+
+Аутентификация (логин/регистрация)
+- templates/NewApp/login.html
+  • В форме регистрации поле name заменено на username.
+- NewApp/views.py
+  • Функция checkEmpty теперь валидирует наличие username (или name) и password.
+  • В ветке регистрации используется username; исключено создание пользователя без имени; добавлены проверки на совпадение паролей.
+
+
