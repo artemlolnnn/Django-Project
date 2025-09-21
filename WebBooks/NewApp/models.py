@@ -5,7 +5,7 @@ from datetime import date
 
 # Create your models here.
 class Genre(models.Model):
-    name = models.CharField(max_length=200,
+    name = models.CharField(max_length=200, null=True, blank=True,
                             help_text="Введите жанр книги",
                             verbose_name="Жанр книги")
 
@@ -13,7 +13,7 @@ class Genre(models.Model):
         return self.name
 
 class Language(models.Model):
-    name = models.CharField(max_length=20,
+    name = models.CharField(max_length=20, null=True, blank=True,
                             help_text="Введите язык книги",
                             verbose_name="Язык книги")
 
@@ -21,19 +21,19 @@ class Language(models.Model):
         return self.name
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=100,
+    first_name = models.CharField(max_length=100, null=True, blank=True,
                                   help_text="Введите имя автора",
                                   verbose_name="Имя автора")
 
-    last_name = models.CharField(max_length=100,
+    last_name = models.CharField(max_length=100, null=True, blank=True,
                                  help_text="Введите фамилию автора",
                                  verbose_name="Фамилия автора")
 
-    date_of_birth = models.DateField(help_text="Введите дату рождения",
+    date_of_birth = models.DateField(help_text="Введите дату рождения", null=True, blank=True,
                                      verbose_name="Дата рождения",
                                      null=True, blank=True)
 
-    date_of_death = models.DateField(help_text="Введите дату смерти",
+    date_of_death = models.DateField(help_text="Введите дату смерти", null=True, blank=True,
                                      verbose_name="Дата смерти",
                                      null=True, blank=True)
 
@@ -41,27 +41,27 @@ class Author(models.Model):
         return self.last_name
 
 class Book(models.Model):
-    title = models.CharField(max_length=200,
+    title = models.CharField(max_length=200, null=True, blank=True,
                              help_text="Введите название книги",
                              verbose_name="Название книги")
 
-    genre = models.ForeignKey('Genre', on_delete=models.CASCADE,
+    genre = models.ForeignKey('Genre', on_delete=models.CASCADE, null=True, blank=True,
                               help_text="Выберите жанр для книги",
                               verbose_name="Жанр книги", null=True)
 
-    language = models.ForeignKey('Language', on_delete=models.CASCADE,
+    language = models.ForeignKey('Language', on_delete=models.CASCADE, null=True, blank=True,
                                  help_text="Выберите язык книги",
                                  verbose_name="Язык книги", null=True)
 
-    author = models.ManyToManyField('Author',
+    author = models.ManyToManyField('Author', null=True, blank=True,
                                     help_text="Выберите автора книги",
                                     verbose_name="Автор книги")
 
-    summary = models.TextField(max_length=1000,
+    summary = models.TextField(max_length=1000, null=True, blank=True,
                                help_text="Введите краткое описание книги",
                                verbose_name="Аннотация книги")
 
-    isbn = models.CharField(max_length=13,
+    isbn = models.CharField(max_length=13, null=True, blank=True,
                             help_text="Должно содержать 13 символов",
                             verbose_name="ISBN книги")
 
@@ -77,7 +77,7 @@ class Book(models.Model):
     display_author.short_description = "Авторы"
 
 class Status(models.Model):
-    name = models.CharField(max_length=20,
+    name = models.CharField(max_length=20, null=True, blank=True,
                             help_text="Введите статус экземпляра книги",
                             verbose_name="Статус экзэмпляра книги")
 
@@ -85,18 +85,19 @@ class Status(models.Model):
         return self.name
 
 class BookInstance(models.Model):
-    book = models.ForeignKey('Book', on_delete=models.CASCADE, null=True)
+    book = models.ForeignKey('Book', on_delete=models.CASCADE, null=True, blank=True)
 
-    inv_nom = models.CharField(max_length=20, null=True,
+    inv_nom = models.CharField(max_length=20, null=True, blank=True,
                                help_text="Введите инвентарный номер книги",
                                verbose_name="Инвентраный номер книги")
 
-    imprint = models.CharField(max_length=200, null=True,
+    imprint = models.CharField(max_length=200, null=True, blank=True,
                                help_text="Введите издательство и год выпуска",
                                verbose_name="Издательство")
 
     status = models.ForeignKey('Status', on_delete=models.CASCADE,
                                null=True,
+                               blank=True,
                                help_text="Изменить состояние экземпляра",
                                verbose_name="Статус экземпляра книги")
 
